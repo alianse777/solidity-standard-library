@@ -41,7 +41,7 @@ pragma solidity ^0.4.0;
                result = double_mult(a, b); // -2.00 * 1.00 = -2.00
                result = double_div(a, b); // -2.00 / 1.00 = -2.00
                
-               dscale = 3; // now 'a' is -2.000 and 'b' is 1.000
+               dscale = 3; // change precision (.00 -> .000)
                double_t(1, 5); // now 1.005
                double_t(1, 50); // now 1.050
                double_t(1, 500); // now 1.500
