@@ -19,6 +19,11 @@ pragma solidity ^0.4.0;
 
 
 contract Converter{
+    /**
+    * @dev Convert unsigned int to string
+    * @param uint
+    * @returns string
+    */
     function toString(uint v) constant returns (string str) {
         uint maxlength = 100; 
         bytes memory reversed = new bytes(maxlength);
@@ -33,7 +38,12 @@ contract Converter{
         } 
         str = string(s); 
     }
-
+    
+    /**
+    * @dev Convert string to unsigned int
+    * @param string
+    * @returns uint
+    */
     function toInt(string s) constant returns (uint result) {
         bytes memory b = bytes(s);
         uint i; result = 0;

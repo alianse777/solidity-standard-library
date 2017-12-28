@@ -16,37 +16,37 @@ pragma solidity ^0.4.0;
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-    Note:
-    double_t(1, 5) will be 1.05
-    but
-    double_t(1, 50) will be 1.5
-    
-    example:
-       import "multiprecision.sol";
-       contract Test is Double
-       {
-           function test() internal
-           {
-               double memory a = double_t(1, 20); // 1.20
-               double memory b = double_t(0, 2); // 0.02
-               double memory result = double_add(a, b); // 1.22
-               
-               a = double_t(2, 0); // 2.00
-               b = double_t(1, 0); // 1.00
-               a.sign = true; // -2.00
-               result = double_add(a, b); // -2.00 + 1.00 = -1.00
-               
-               result = double_sub(a, b); // -2.00 - 1.00 = -3.00
-               result = double_mult(a, b); // -2.00 * 1.00 = -2.00
-               result = double_div(a, b); // -2.00 / 1.00 = -2.00
-               
-               dscale = 3; // change precision (.00 -> .000)
-               double_t(1, 5); // now 1.005
-               double_t(1, 50); // now 1.050
-               double_t(1, 500); // now 1.500
-           }
-       }
+/**
+*    Note:
+*    double_t(1, 5) will be 1.05
+*    but
+*    double_t(1, 50) will be 1.5
+*    
+*    example:
+*       import "multiprecision.sol";
+*       contract Test is Double
+*       {
+*           function test() internal
+*           {
+*               double memory a = double_t(1, 20); // 1.20
+*               double memory b = double_t(0, 2); // 0.02
+*               double memory result = double_add(a, b); // 1.22
+*               
+*               a = double_t(2, 0); // 2.00
+*               b = double_t(1, 0); // 1.00
+*               a.sign = true; // -2.00
+*               result = double_add(a, b); // -2.00 + 1.00 = -1.00
+*               
+*               result = double_sub(a, b); // -2.00 - 1.00 = -3.00
+*               result = double_mult(a, b); // -2.00 * 1.00 = -2.00
+*               result = double_div(a, b); // -2.00 / 1.00 = -2.00
+*               
+*               dscale = 3; // change precision (.00 -> .000)
+*               double_t(1, 5); // now 1.005
+*               double_t(1, 50); // now 1.050
+*               double_t(1, 500); // now 1.500
+*           }
+*       }
 */
 
 contract Double
@@ -55,7 +55,11 @@ contract Double
     uint dot = 10**dscale;
     struct double {uint part; uint f; bool sign;}
 
-    // this function creates new double instanse as (part).(f);
+    /**
+    * @dev Creates new double instanse a.b
+    * @param int a, uint b
+    * @returns double
+    */
     function double_t(int part, uint f) internal returns (double data)
     {
         data.part = uint(part);
@@ -93,6 +97,11 @@ contract Double
     // add, sub, mult, div
     */
 
+    /**
+    * @dev Sum two doubles
+    * @param double a, double b
+    * @returns a + b
+    */
     function double_add(double lhs, double rhs) internal returns (double)
     {
         uint l = convert(lhs);

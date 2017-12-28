@@ -17,13 +17,13 @@ pragma solidity ^0.4.0;
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* Array wraper
-min() - returns minimal array element
-max() - returns maximal array element
-sum() - returns sum of all array elements
-set(uint []) - set array
-get() - returns stored array
-sort() - sorts all array elements
+/** Array wraper
+* min() - returns minimal array element
+* max() - returns maximal array element
+* sum() - returns sum of all array elements
+* set(uint []) - set array
+* get() - returns stored array
+* sort() - sorts all array elements
 */
 
 
