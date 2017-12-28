@@ -44,7 +44,7 @@ contract Converter{
     * @param string
     * @returns uint
     */
-    function toInt(string s) constant returns (uint result) {
+    function toUint(string s) constant returns (uint result) {
         bytes memory b = bytes(s);
         uint i; result = 0;
         for (i = 0; i < b.length; i++) { 
