@@ -32,11 +32,15 @@ pragma solidity ^0.4.0;
 
 contract UintArray{
     uint [] private data;
-    function UintArray(uint [] _data){
+    function UintArray(uint [] _data) public {
         data = _data;
     }
 
-    function min() constant returns (uint){
+    /**
+     * @dev Returns minimal element in array
+     * @return uint
+     */
+    function min() public view returns (uint) {
         uint minimal = data[0];
         for(uint i;i < data.length;i++){
             if(data[i] < minimal){
@@ -46,7 +50,11 @@ contract UintArray{
         return minimal;
     }
 
-    function max() constant returns (uint){
+    /**
+     * @dev Returns maximal element in array
+     * @return uint
+     */
+    function max() public view returns (uint) {
         uint maximal = data[0];
         for(uint i;i < data.length;i++){
             if(data[i] > maximal){
@@ -55,8 +63,11 @@ contract UintArray{
         }
         return maximal;
     }
-
-    function sum() constant returns (uint){
+    /**
+     * @dev Compute sum of all elements
+     * @return uint
+     */
+    function sum() constant returns (uint) {
         uint S;
         for(uint i;i < data.length;i++){
             S += data[i];
@@ -64,15 +75,23 @@ contract UintArray{
         return S;
     }
 
-    function set(uint [] _data){
+    /**
+     * @dev assign new array pointer from _data
+     * @param _data is array to assign
+     */
+    function set(uint [] _data) public {
         data = _data;
     }
 
-    function get() constant returns (uint []){
+    /**
+     * @dev Get the contents of array
+     * @return uint[]
+     */
+    function get() public view returns (uint []) {
         return data;
     }
 
-    function quickSort(uint l, uint r) private{
+    function quickSort(uint l, uint r) private {
         uint x = data[l + (r - l)/2];
         uint i = l;
         uint j = r;
@@ -90,8 +109,10 @@ contract UintArray{
         if(i < r) quickSort(i, r);
         if(l < j) quickSort(l, j);
     }
-
-    function sort(){
+    /**
+     * @dev Sort the array
+     */
+    function sort() public {
         quickSort(0, data.length - 1);
     }
 }

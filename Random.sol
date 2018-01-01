@@ -24,32 +24,48 @@ pragma solidity ^0.4.0;
 */
 
 
-contract Random{
-    uint last = 0;
-    function rand(uint seed) constant returns (uint){
+contract Random {
+    /**
+     * @dev Generate random uint <= 256^2
+     * @param seed 
+     * @return uint
+     */
+    function rand(uint seed) public pure returns (uint) {
         bytes32 data;
         if (seed % 2 == 0){
-            data = sha3(bytes32(seed));
+            data = keccak256(bytes32(seed));
         }else{
-            data = sha3(sha3(bytes32(seed)));
+            data = keccak256(keccak256(bytes32(seed)));
         }
         uint sum;
         for(uint i;i < 32;i++){
             sum += uint(data[i]);
         }
-        return uint(data[sum % data.length]);
+        return uint(data[sum % data.length])*uint(data[(sum + 2) % data.length]);
     }
     
-    function randint() constant returns(uint) {
-        if (last == 0){
-            last = now;
-        }
-        uint x = rand(last);
-        last = x;
-        return x;
+    /** 
+     * @dev Generate random uint <= 256^2 with seed = block.timestamp
+     * @return uint
+     */
+    function randint() public view returns(uint) {
+        return rand(now);
     }
     
-    function randbytes(uint size, uint seed) constant returns (byte []){
+    /**
+     * @dev Generate random uint in range [a, b]
+     * @return uint
+     */
+    function randrange(uint a, uint b) public view returns(uint) {
+        return a + (randint() % b);
+    }
+    
+    /**
+     * @dev Generate array of random bytes
+     * @param size seed
+     * @return byte[size]
+     */
+    function randbytes(uint size, uint seed) public pure returns (byte []) {
         byte [] memory data = new byte[](size);
         uint x = seed;
         for(uint i;i < size;i++){

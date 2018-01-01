@@ -19,8 +19,12 @@ pragma solidity ^0.4.0;
 
 
 contract Math{
-   // Computes the square root of x
-   function sqrt(uint x) constant returns (uint){
+   /**
+    * @dev Compute square root of x
+    * @param x 
+    * @return sqrt(x)
+    */
+   function sqrt(uint x) public pure returns (uint){
        uint n = x / 2.0;
        uint lstX = 0.0;
        while (n != lstX){
@@ -30,8 +34,12 @@ contract Math{
        return uint(n);
    }
 	
-    // Computes the modular exponential (x ** k) % m
-   function mexp(uint x, uint k, uint m) returns (uint r) {
+    /**
+     * @dev Compute modular exponential (x ** k) % m
+     * @param x k m
+     * @return uint
+     */
+   function mexp(uint x, uint k, uint m) public pure returns (uint r) {
        r = 1;
        for (uint s = 1; s <= k; s *= 2) {
            if (k & s != 0) r = mulmod(r, x, m);

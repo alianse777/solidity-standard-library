@@ -57,13 +57,13 @@ contract Double
 
     /**
     * @dev Creates new double instanse a.b
-    * @param int a, uint b
-    * @returns double
+    * @param integral fractional
+    * @return double(integral.fractional)
     */
-    function double_t(int part, uint f) internal returns (double data)
+    function double_t(int integral, uint fractional) internal returns (double data)
     {
-        data.part = uint(part);
-        data.f = f;
+        data.part = uint(integral);
+        data.f = fractional;
     }
 
     function convert(double data) internal returns (uint r)
@@ -99,8 +99,8 @@ contract Double
 
     /**
     * @dev Sum two doubles
-    * @param double a, double b
-    * @returns a + b
+    * @param lhs rhs
+    * @return lhs + rhs
     */
     function double_add(double lhs, double rhs) internal returns (double)
     {
@@ -123,6 +123,10 @@ contract Double
         }
     }
 
+    /**
+     * @param lhs rhs
+     * @return lhs - rhs
+     */
     function double_sub(double lhs, double rhs) internal returns (double)
     {
         uint l = convert(lhs);
@@ -159,6 +163,10 @@ contract Double
         }
     }
 
+    /**
+     * @param lhs rhs
+     * @return lhs * rhs
+     */
     function double_mult(double lhs, double rhs) internal returns (double)
     {
         uint l = convert(lhs);
@@ -166,6 +174,10 @@ contract Double
         return normalize(l*r, 4, xor(lhs.sign, rhs.sign));
     }
 
+    /**
+     * @param lhs rhs
+     * @return lhs / rhs
+     */
     function double_div(double lhs, double rhs) internal returns (double)
     {
         uint l = convert(lhs);
