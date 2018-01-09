@@ -30,10 +30,13 @@ pragma solidity ^0.4.0;
 //Uint Array
 
 
-contract UintArray{
-    uint [] private data;
-    function UintArray(uint [] _data) public {
-        data = _data;
+contract UintArray {
+    uint[] private data;
+    function UintArray(uint[] _data) public {
+        data = new uint[](_data.length);
+        for(uint i = 0;i < _data.length;i++) {
+            data[i] = _data[i];
+        }
     }
 
     /**
@@ -45,6 +48,20 @@ contract UintArray{
         for(uint i;i < data.length;i++){
             if(data[i] < minimal){
                 minimal = data[i];
+            }
+        }
+        return minimal;
+    }
+    
+    /**
+     * @dev Returns minimal element's index
+     * @return uint
+     */
+    function imin() public view returns (uint) {
+        uint minimal = 0;
+        for(uint i;i < data.length;i++){
+            if(data[i] < data[minimal]){
+                minimal = i;
             }
         }
         return minimal;
@@ -63,11 +80,26 @@ contract UintArray{
         }
         return maximal;
     }
+    
+    /**
+     * @dev Returns maximal element's index
+     * @return uint
+     */
+    function imax() public view returns (uint) {
+        uint maximal = 0;
+        for(uint i;i < data.length;i++){
+            if(data[i] > data[maximal]){
+                maximal = i;
+            }
+        }
+        return maximal;
+    }
+    
     /**
      * @dev Compute sum of all elements
      * @return uint
      */
-    function sum() constant returns (uint) {
+    function sum() public view returns (uint) {
         uint S;
         for(uint i;i < data.length;i++){
             S += data[i];
@@ -87,33 +119,35 @@ contract UintArray{
      * @dev Get the contents of array
      * @return uint[]
      */
-    function get() public view returns (uint []) {
+    function get() public view returns (uint[]) {
         return data;
     }
+    
+    function at(uint i) public view returns (uint) {
+        return data[i];
+    }
 
-    function quickSort(uint l, uint r) private {
-        uint x = data[l + (r - l)/2];
-        uint i = l;
-        uint j = r;
-        while (i <= j){
-            while (data[i] < x) i++;
-            while (data[j] > x) j--;
-            if(i <= j){
-                uint var1 = data[i];
-                data[i] = data[j];
-                data[j] = var1;
-                i++;
-                j--;
+    function sort_item(uint pos) internal returns (bool) {
+        uint w_min = pos;
+        for(uint i = pos;i < data.length;i++) {
+            if(data[i] < data[w_min]) {
+                w_min = i;
             }
         }
-        if(i < r) quickSort(i, r);
-        if(l < j) quickSort(l, j);
+        if(w_min == pos) return false;
+        uint tmp = data[pos];
+        data[pos] = data[w_min];
+        data[w_min] = tmp;
+        return true;
     }
+    
     /**
      * @dev Sort the array
      */
     function sort() public {
-        quickSort(0, data.length - 1);
+        for(uint i = 0;i < data.length-1;i++) {
+            sort_item(i);
+        }
     }
 }
 
@@ -121,13 +155,17 @@ contract UintArray{
 // Int Array
 
 
-contract IntArray{
+contract IntArray {
     int [] private data;
-    function IntArray(int [] _data){
+    function IntArray(int [] _data) public {
         data = _data;
     }
 
-    function min() constant returns (int){
+    /**
+     * @dev Returns minimal element in array
+     * @return int
+     */
+    function min() public view returns (int) {
         int minimal = data[0];
         for(uint i;i < data.length;i++){
             if(data[i] < minimal){
@@ -136,53 +174,93 @@ contract IntArray{
         }
         return minimal;
     }
-
-    function max() constant returns (int){
-        int maximal = data[0];
+    
+    /**
+     * @dev Returns minimal element's index
+     * @return uint
+     */
+    function imin() public view returns (uint) {
+        uint minimal = 0;
         for(uint i;i < data.length;i++){
-            if(data[i] > maximal){
+            if(data[i] < data[minimal]){
+                minimal = i;
+            }
+        }
+        return minimal;
+    }
+
+    /**
+     * @dev Returns maximal element in array
+     * @return int
+     */
+    function max() public view returns (int) {
+        int maximal = data[0];
+        for(uint i;i < data.length;i++) {
+            if(data[i] > maximal) {
                 maximal = data[i];
             }
         }
         return maximal;
     }
-
-    function sum() constant returns (int){
-        int S;
+    
+    /**
+     * @dev Returns maximal element's index
+     * @return uint
+     */
+    function imax() public view returns (uint) {
+        uint maximal = 0;
         for(uint i;i < data.length;i++){
+            if(data[i] > data[maximal]){
+                maximal = i;
+            }
+        }
+        return maximal;
+    }
+
+    /**
+     * @dev Compute sum of all elements
+     * @return int
+     */
+    function sum() public view returns (int) {
+        int S;
+        for(uint i;i < data.length;i++) {
             S += data[i];
         }
         return S;
     }
 
-    function set(int [] _data){
+    function set(int [] _data) public {
         data = _data;
     }
 
-    function get() constant returns (int []){
+    function get() public view returns (int []) {
         return data;
     }
-
-    function quickSort(uint l, uint r) private{
-        int x = data[l + (r - l)/2];
-        uint i = l;
-        uint j = r;
-        while (i <= j){
-            while (data[i] < x) i++;
-            while (data[j] > x) j--;
-            if(i <= j){
-                int var1 = data[i];
-                data[i] = data[j];
-                data[j] = var1;
-                i++;
-                j--;
-            }
-        }
-        if(i < r) quickSort(i, r);
-        if(l < j) quickSort(l, j);
+    
+    function at(uint i) public view returns (int) {
+        return data[i];
     }
 
-    function sort(){
-        quickSort(0, data.length - 1);
+    function sort_item(uint pos) internal returns (bool) {
+        uint w_min = pos;
+        for(uint i = pos;i < data.length;i++) {
+            if(data[i] < data[w_min]) {
+                w_min = i;
+            }
+        }
+        if(w_min == pos) return false;
+        int tmp = data[pos];
+        data[pos] = data[w_min];
+        data[w_min] = tmp;
+        return true;
+    }
+    
+    /**
+     * @dev Sort the array
+     */
+    function sort() public {
+        for(uint i = 0;i < data.length-1;i++) {
+            sort_item(i);
+        }
     }
 }
