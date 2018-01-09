@@ -51,9 +51,14 @@ pragma solidity ^0.4.0;
 
 contract Double
 {
-    uint dscale = 2;  // precision
-    uint dot = 10**dscale;
+    uint private dscale = 2;  // precision
+    uint private dot = 10**dscale;
     struct double {uint part; uint f; bool sign;}
+
+    function setPrecision(uint prec) internal {
+        dscale = prec;
+        dot = 10**dscale;
+    }
 
     /**
     * @dev Creates new double instanse a.b
@@ -62,7 +67,13 @@ contract Double
     */
     function double_t(int integral, uint fractional) internal pure returns (double data)
     {
-        data.part = uint(integral);
+        if(integral < 0)
+        {
+            data.sign = true;
+            data.part = uint(-integral);
+        } else {
+            data.part = uint(integral);
+        }
         data.f = fractional;
     }
 

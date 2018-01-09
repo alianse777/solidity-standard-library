@@ -24,7 +24,7 @@ contract Converter {
     * @param v - uint to convert.
     * @return bytes.
     */
-    function uintToStr(uint v) pure public returns (bytes) {
+    function uintToStr(uint v) internal pure returns (bytes) {
         uint maxlength = 100; 
         bytes memory reversed = new bytes(maxlength);
         uint i = 0; 
@@ -46,7 +46,7 @@ contract Converter {
     * @param b is a bytes to convert.
     * @return integer.
     */
-    function strToInt(bytes b) pure public returns (int result) {
+    function strToInt(bytes b) internal pure returns (int result) {
         uint i = 0;
         uint tr = 0;
         result = 0;
@@ -77,7 +77,7 @@ contract Converter {
      * @param v is integer to convert.
      * @return string.
      */
-    function intToStr(int v) pure public returns (bytes) {
+    function intToStr(int v) internal pure returns (bytes) {
         uint maxlength = 100; 
         bytes memory reversed = new bytes(maxlength);
         uint i = 0;

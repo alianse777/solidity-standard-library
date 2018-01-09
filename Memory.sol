@@ -51,7 +51,7 @@ contract STDMemory {
     /** @dev Used to test memory pointers
     * @return true - OK, false - error
     */
-    function m_test_uint() public pure returns (bool) {
+    function m_test_uint() internal pure returns (bool) {
         uint [] memory dt = new uint[](3);
         for(uint i = 0;i < dt.length;i++) {
             dt[i] = i;
@@ -89,7 +89,7 @@ contract STDMemory {
     /** @dev Used to test memory pointers
     * @return true - OK, false - error
     */
-    function m_test_int() public pure returns (bool) {
+    function m_test_int() internal pure returns (bool) {
         int [] memory dt = new int[](3);
         for(uint i = 0;i < dt.length;i++) {
             dt[i] = int(i);
