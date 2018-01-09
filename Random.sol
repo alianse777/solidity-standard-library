@@ -30,7 +30,7 @@ contract Random {
      * @param seed 
      * @return uint
      */
-    function rand(uint seed) public pure returns (uint) {
+    function rand(uint seed) internal pure returns (uint) {
         bytes32 data;
         if (seed % 2 == 0){
             data = keccak256(bytes32(seed));
@@ -48,7 +48,7 @@ contract Random {
      * @dev Generate random uint <= 256^2 with seed = block.timestamp
      * @return uint
      */
-    function randint() public view returns(uint) {
+    function randint() internal view returns(uint) {
         return rand(now);
     }
     
@@ -56,7 +56,7 @@ contract Random {
      * @dev Generate random uint in range [a, b]
      * @return uint
      */
-    function randrange(uint a, uint b) public view returns(uint) {
+    function randrange(uint a, uint b) internal view returns(uint) {
         return a + (randint() % b);
     }
     
@@ -65,7 +65,7 @@ contract Random {
      * @param size seed
      * @return byte[size]
      */
-    function randbytes(uint size, uint seed) public pure returns (byte []) {
+    function randbytes(uint size, uint seed) internal pure returns (byte []) {
         byte [] memory data = new byte[](size);
         uint x = seed;
         for(uint i;i < size;i++){
