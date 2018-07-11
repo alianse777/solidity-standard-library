@@ -86,7 +86,8 @@ Example:
                double_t(1, 50); // now 1.050
                double_t(1, 500); // now 1.500
            }
-       }
+      }
+
 
 Double contract members:
 * `struct double` - signed double representation
