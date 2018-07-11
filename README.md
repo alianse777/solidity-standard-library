@@ -62,6 +62,7 @@ double_t(1, 50) will be 1.5
 with dscale = 2 (Number of digits after dot)
 
 Example:
+
        import "multiprecision.sol";
        contract Test is Double
        {
