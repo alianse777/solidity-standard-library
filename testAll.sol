@@ -9,7 +9,7 @@ import "./Array.sol";
 contract TestAll is Random, Converter, STDMemory, Double {
     
     function testAll() public {
-        
+        return TestRandom() && TestConvert() && TestMemory() && TestMultiprecision() && TestArray();
     }
     
     function TestRandom() public view returns (bool) {
