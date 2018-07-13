@@ -36,4 +36,8 @@ contract ERC20 is ERC20Interface, Double {
     function decimals() public view returns (uint8 decimals) {
         decimals = dscale;
     }
+    
+    function balanceOf(address owner) public view returns (uint256 balance) {
+        balance = balances[owner];
+    }
 }
