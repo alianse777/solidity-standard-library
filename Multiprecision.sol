@@ -65,8 +65,7 @@ contract Double
     * @param integral fractional
     * @return double(integral.fractional)
     */
-    function double_t(int integral, uint fractional) internal pure returns (double data)
-    {
+    function double_t(int integral, uint fractional) internal pure returns (double data) {
         if(integral < 0)
         {
             data.sign = true;
@@ -79,12 +78,15 @@ contract Double
 
     function convert(double data) internal view returns (uint r)
     {
-        r = data.part*dot + data.f;
+        uint256 integer = data.part*dot;
+        assert(integer / data.part == dot);
+        r =  integer + data.f;
+        assert(r - data.f == integer);
     }
 
-    function normalize(uint num, uint s, bool sign) internal view returns (double data)
+    function normalize(uint num, uint exp, bool sign) internal view returns (double data)
     {
-        uint d = 10**s;
+        uint d = 10**exp;
         uint part = num / d;
         uint f = num % d;
         if (f % dot == 0)
@@ -275,7 +277,10 @@ contract Double
         int [] memory result = new int [](data.length * 2);
         for(uint i = 0;i < data.length;i++)
         {
-            result[index] = int(data[i].part);
+            if(data[i].sign)
+                result[index] = -int(data[i].part);
+            else
+                result[index] = int(data[i].part);
             result[index+1] = int(data[i].f);
             index += 2;
         }
